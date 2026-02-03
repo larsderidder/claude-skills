@@ -1,5 +1,7 @@
 # Agent Credential Isolation
 
+> **⚠️ Honest disclaimer:** This is a first-layer experiment, not real security. If your agent runs as your user and can execute arbitrary shell commands, it can bypass this entirely - read browser cookies directly, curl APIs, etc. This prevents accidents and overeager-but-honest agents, not determined circumvention. Real isolation requires running the agent as a separate user with capability-based access control.
+
 A pattern for preventing AI agents from bypassing approval gates for sensitive operations.
 
 ## The Problem
