@@ -5,7 +5,7 @@
 set -euo pipefail
 
 SECRETS_DIR="/etc/agent-secrets"
-EXEC_USER="${GATED_EXEC_USER:-lars}"  # User to drop privileges to
+EXEC_USER="${GATED_EXEC_USER:-$(logname)}"  # User to drop privileges to
 
 if [[ $# -lt 2 ]]; then
     echo "Usage: gated-exec-helper <profile> <command> [args...]" >&2

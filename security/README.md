@@ -17,7 +17,7 @@ Use Unix permissions to ensure the agent **never sees the credentials**. A separ
 
 ```
 ┌─────────────────┐     polkit auth      ┌──────────────────┐
-│  Agent (lars)    │ ──── password ────→  │  gated-exec      │
+│  Agent (you)     │ ──── password ────→  │  gated-exec      │
 │  No credentials  │     required         │  (reads secrets)  │
 │  Can't bypass    │                      │  Runs the command │
 └─────────────────┘                      └──────────────────┘
