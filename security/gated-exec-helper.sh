@@ -33,5 +33,8 @@ set -a
 source "$SECRETS_FILE"
 set +a
 
+# Log the action for audit trail
+logger -t gated-exec "profile=$PROFILE user=$EXEC_USER command=$* requested_by=${GATED_EXEC_COMMAND:-unknown}"
+
 # Drop privileges back to the original user and run the command
 exec sudo -u "$EXEC_USER" --preserve-env "$@"

@@ -5,7 +5,7 @@
 <policyconfig>
   <action id="com.agent.gated-exec">
     <description>Run a command with agent secrets</description>
-    <message>Authentication is required to run a gated command with stored credentials.</message>
+    <message>Your AI agent wants to run a gated command. Check the notification for details.</message>
     <icon_name>dialog-password</icon_name>
     <defaults>
       <!-- Always require active authentication - no caching -->
