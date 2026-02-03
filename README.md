@@ -63,6 +63,58 @@ ln -sf ~/.claude/plugins/ralph-wiggum/commands/cancel-ralph.md ~/.claude/command
 }
 ```
 
+## Recipes
+
+### Spec-to-Code (Interview → Ralph Loop)
+
+The most powerful workflow: interview yourself to create a detailed spec, then let Ralph iterate until it's built.
+
+**Step 1: Generate the spec**
+
+```
+/interview Build a REST API for managing IoT device configurations
+```
+
+Claude interviews you about requirements, edge cases, auth, data models, etc. Every 5 questions it gives a confidence score and asks if you want to continue or wrap up. When done, it writes a detailed `spec.md`.
+
+**Step 2: (Optional) Create a plan**
+
+Review the spec, make edits, then ask Claude to create a `plan.md` with implementation phases.
+
+**Step 3: Ralph Loop**
+
+```
+/ralph-loop "Implement the spec in spec.md. Use plan.md as a guideline. TDD. Output <promise>COMPLETE</promise> when all tests pass." --max-iterations 30
+```
+
+Claude will:
+1. Read the spec and plan
+2. Write failing tests first
+3. Implement code to make them pass
+4. Run tests, see failures, fix them
+5. Repeat across iterations (each iteration sees previous work in files)
+6. Output `<promise>COMPLETE</promise>` when everything passes
+
+You can walk away and come back to working, tested code.
+
+**Tips:**
+- Always use `--max-iterations` as a safety net
+- Include "TDD" in the prompt to enforce test-first development
+- The spec quality determines the output quality - don't rush the interview
+- Check progress anytime: `head -10 .claude/ralph-loop.local.md`
+
+### Quick Bug Fix Loop
+
+```
+/ralph-loop "Fix the failing tests in src/. Run pytest after each change. Output <promise>COMPLETE</promise> when all tests pass." --max-iterations 15
+```
+
+### Refactoring Loop
+
+```
+/ralph-loop "Refactor src/api/ to use dependency injection. Keep all existing tests passing. Add tests for new DI container. Output <promise>COMPLETE</promise> when done and all tests pass." --max-iterations 20
+```
+
 ## Credits
 
 - **Interview skill**: Adapted from [Danny Postma](https://x.com/dannypostmaa)
